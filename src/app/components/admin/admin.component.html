@@ -1,0 +1,176 @@
+<table mat-table [dataSource]="products" class="mat-elevation-z8">
+
+  <!-- ID -->
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> ID </th>
+    <td mat-cell *matCellDef="let p"> {{ p.id }} </td>
+  </ng-container>
+
+  <!-- IMAGE -->
+  <ng-container matColumnDef="image">
+    <th mat-header-cell *matHeaderCellDef> Kép </th>
+    <td mat-cell *matCellDef="let p">
+      <ng-container *ngIf="editModeId !== p.id; else editImg">
+        <img class="img-preview" [src]="p.imageUrl" alt="{{p.name}}">
+      </ng-container>
+      <ng-template #editImg>
+        <input
+          #editFileInput
+          type="file"
+          accept="image/*"
+          style="display:none"
+          (change)="onEditFileSelected($event)"
+        >
+        <button
+          mat-icon-button
+          color="primary"
+          [disabled]="editUploadInProgress"
+          (click)="editFileInput.click()"
+        >
+          <mat-icon>upload</mat-icon>
+        </button>
+        <img
+          *ngIf="editPreviewUrl"
+          class="img-preview"
+          [src]="editPreviewUrl"
+          alt="Preview"
+        >
+      </ng-template>
+    </td>
+  </ng-container>
+
+  <!-- NAME -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Név </th>
+    <td mat-cell *matCellDef="let p">
+      <ng-container *ngIf="editModeId !== p.id; else editName">
+        {{ p.name }}
+      </ng-container>
+      <ng-template #editName>
+        <input matInput [(ngModel)]="editModel.name">
+      </ng-template>
+    </td>
+  </ng-container>
+
+  <!-- DESCRIPTION -->
+  <ng-container matColumnDef="description">
+    <th mat-header-cell *matHeaderCellDef> Leírás </th>
+    <td mat-cell *matCellDef="let p">
+      <ng-container *ngIf="editModeId !== p.id; else editDesc">
+        {{ p.description }}
+      </ng-container>
+      <ng-template #editDesc>
+        <input matInput [(ngModel)]="editModel.description">
+      </ng-template>
+    </td>
+  </ng-container>
+
+  <!-- PRICE -->
+  <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef> Ár </th>
+    <td mat-cell *matCellDef="let p">
+      <ng-container *ngIf="editModeId !== p.id; else editPrice">
+        {{ p.price }}
+      </ng-container>
+      <ng-template #editPrice>
+        <input matInput type="number" [(ngModel)]="editModel.price">
+      </ng-template>
+    </td>
+  </ng-container>
+
+  <!-- CATEGORY -->
+  <ng-container matColumnDef="category">
+    <th mat-header-cell *matHeaderCellDef> Kategória </th>
+    <td mat-cell *matCellDef="let p">
+      <ng-container *ngIf="editModeId !== p.id; else editCat">
+        {{ p.category }}
+      </ng-container>
+      <ng-template #editCat>
+        <mat-form-field appearance="outline">
+          <mat-select [(ngModel)]="editModel.category">
+            <mat-option *ngFor="let c of categories" [value]="c">{{ c }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </ng-template>
+    </td>
+  </ng-container>
+
+  <!-- STOCK -->
+  <ng-container matColumnDef="stock">
+    <th mat-header-cell *matHeaderCellDef> Készlet </th>
+    <td mat-cell *matCellDef="let p">
+      <ng-container *ngIf="editModeId !== p.id; else editStock">
+        {{ p.stock }}
+      </ng-container>
+      <ng-template #editStock>
+        <input matInput type="number" [(ngModel)]="editModel.stock">
+      </ng-template>
+    </td>
+  </ng-container>
+
+  <!-- ACTIONS -->
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef> </th>
+    <td mat-cell *matCellDef="let p">
+      <ng-container *ngIf="editModeId !== p.id; else saveCancel">
+        <button mat-icon-button color="primary" (click)="startEdit(p)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteProduct(p.id!)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </ng-container>
+      <ng-template #saveCancel>
+        <button mat-button color="accent" (click)="saveEdit()" [disabled]="editUploadInProgress">
+          Mentés
+        </button>
+        <button mat-button (click)="cancelEdit()">Mégse</button>
+      </ng-template>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row        *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<!-- Új termék felvitelekor -->
+<div class="new-product-form" style="margin-top:16px;">
+  <input
+    #fileInput
+    type="file"
+    accept="image/*"
+    style="display:none"
+    (change)="onFileSelected($event)"
+  >
+  <button
+    mat-stroked-button
+    color="primary"
+    [disabled]="uploadInProgress"
+    (click)="fileInput.click()"
+  >
+    <mat-icon>upload</mat-icon>
+    {{ uploadInProgress ? 'Feltöltés…' : 'Kép feltöltése' }}
+  </button>
+  <img *ngIf="previewUrl" class="img-preview" [src]="previewUrl" alt="Preview">
+
+  <mat-form-field appearance="outline"><mat-label>Név</mat-label>
+    <input matInput [(ngModel)]="newProduct.name">
+  </mat-form-field>
+  <mat-form-field appearance="outline"><mat-label>Leírás</mat-label>
+    <input matInput [(ngModel)]="newProduct.description">
+  </mat-form-field>
+  <mat-form-field appearance="outline"><mat-label>Ár</mat-label>
+    <input matInput type="number" [(ngModel)]="newProduct.price">
+  </mat-form-field>
+  <mat-form-field appearance="outline"><mat-label>Kategória</mat-label>
+    <mat-select [(ngModel)]="newProduct.category">
+      <mat-option *ngFor="let c of categories" [value]="c">{{ c }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline"><mat-label>Készlet</mat-label>
+    <input matInput type="number" [(ngModel)]="newProduct.stock">
+  </mat-form-field>
+  <button mat-raised-button color="accent" (click)="addProduct()" [disabled]="uploadInProgress">
+    Hozzáad
+  </button>
+</div>

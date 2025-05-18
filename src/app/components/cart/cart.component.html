@@ -1,0 +1,31 @@
+<div class="container" *ngIf="cartItems.length; else empty">
+  <mat-card *ngFor="let item of cartItems" class="cart-item">
+    <div class="item-details">
+      <h3>{{ item.product.name }}</h3>
+      <p>Ár: {{ item.product.price | priceFormat:'HUF' }}</p>
+    </div>
+    <div class="quantity-controls">
+      <input
+        type="number"
+        [ngModel]="item.quantity"
+        (ngModelChange)="updateQuantity(item.product.id!, $event)"
+        min="1"
+      >
+      <button mat-icon-button color="warn" (click)="remove(item.product.id!)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </mat-card>
+
+  <div class="total">
+    <strong>Végösszeg: {{ total | priceFormat:'HUF' }}</strong>
+  </div>
+
+  <button mat-raised-button color="primary" routerLink="/checkout">
+    Pénztár
+  </button>
+</div>
+
+<ng-template #empty>
+  <p class="empty-msg">A kosarad üres.</p>
+</ng-template>

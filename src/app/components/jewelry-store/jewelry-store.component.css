@@ -1,0 +1,143 @@
+/* ======= Product List Responsive Grid ======= */
+.product-list {
+  display: grid;
+  /* as many 260px‐wide columns as fit, minimum 1 column */
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* small phones */
+@media (max-width: 480px) {
+  .product-list {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* tablets */
+@media (min-width: 481px) and (max-width: 768px) {
+  .product-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* desktops */
+@media (min-width: 769px) {
+  .product-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ======= Product Card Styling ======= */
+.product-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+.product-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.product-card mat-card-content {
+  flex: 1;
+  padding: 1rem;
+}
+
+.product-card h3 {
+  font-size: 1.3rem;
+  margin: 0.5rem 0;
+  color: var(--text-color);
+}
+
+.product-card p {
+  font-size: 0.95rem;
+  margin: 0.25rem 0;
+  color: var(--text-color);
+}
+
+.product-card .price {
+  font-weight: bold;
+  margin-top: 0.5rem;
+  color: var(--accent-color);
+}
+
+.product-card mat-card-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: #fafafa;
+}
+
+/* ======= Hero tweaks ======= */
+
+/* overlay fade-in, if desired */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom right,
+    rgba(0, 0, 0, 0.6),
+    rgba(0, 0, 0, 0.3)
+  );
+  animation: overlayFade 1.5s ease-in-out forwards;
+}
+
+@keyframes overlayFade {
+  from { background: rgba(0,0,0,0); }
+  to {
+    background: linear-gradient(
+      to bottom right,
+      rgba(0, 0, 0, 0.6),
+      rgba(0, 0, 0, 0.3)
+    );
+  }
+}
+
+/* slide-up animation for hero text */
+@keyframes slideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+.hero {
+  position: relative;
+  height: 60vh;
+  background: url('/assets/hero.jpg') no-repeat center/cover;
+  display: flex;
+  align-items: center;         /* ← vertical centering */
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  /* remove margin-top entirely */
+  /* if you want just a little shift, use translateY: */
+  transform: translateY(10%);  /* ← only 10% down from perfect center */
+  animation: slideUp 1s ease-out forwards;
+  opacity: 0;
+}
+
+
+/* ======= Container ======= */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}

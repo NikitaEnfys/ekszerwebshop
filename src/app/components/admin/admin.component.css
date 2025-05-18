@@ -1,0 +1,19 @@
+.img-preview {
+  display: block;
+  max-width: 150px;
+  margin: .5rem 0;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.file-label button {
+  cursor: pointer;
+}
+.new-product-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-end;
+}
+.new-product-form mat-form-field {
+  flex: 1 1 200px;
+}

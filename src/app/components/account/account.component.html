@@ -1,0 +1,57 @@
+<h1>Fiókom</h1>
+
+<section>
+  <h2 class="section-title">Leadott rendelések</h2>
+
+  <div *ngFor="let order of orders" class="order-card">
+    <div class="order-summary" (click)="toggleDetails(order.id)">
+      <div>
+        <p><strong>Dátum:</strong> {{ order.date | date:'mediumDate' }}</p>
+        <p><strong>Megrendelő:</strong> {{ order.personal?.fullName || '-' }}</p>
+      </div>
+      <div>
+        <p><strong>Végösszeg:</strong> {{ order.total | currency:'HUF' }}</p>
+        <p><strong>Státusz:</strong> {{ order.status }}</p>
+      </div>
+    </div>
+
+    <div *ngIf="selectedOrderId === order.id" class="order-details">
+      <p><strong>Email:</strong> {{ order.personal?.email }}</p>
+      <p><strong>Szállítási cím:</strong>
+        {{ order.shipping?.address }},
+        {{ order.shipping?.postalCode }} {{ order.shipping?.city }}
+      </p>
+
+      <div class="items-table-wrapper">
+        <table class="items-table">
+          <thead>
+          <tr>
+            <th>Termék</th>
+            <th>Mennyiség</th>
+            <th>Egységár</th>
+            <th>Összesen</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of order.items">
+            <td>{{ item.product?.name || item.name || '-' }}</td>
+            <td>{{ item.quantity || 0 }}</td>
+            <td>{{ item.product?.price || item.price | currency:'HUF' }}</td>
+            <td>{{ (item.product?.price || item.price) * item.quantity | currency:'HUF' }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div *ngIf="isAdmin()" class="status-control">
+        <label for="status"><strong>Státusz módosítás:</strong></label>
+        <select [(ngModel)]="order.status" (change)="updateOrderStatus(order)">
+          <option value="függőben">Függőben</option>
+          <option value="feldolgozás alatt">Feldolgozás alatt</option>
+          <option value="kiszállítva">Kiszállítva</option>
+          <option value="teljesítve">Teljesítve</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</section>

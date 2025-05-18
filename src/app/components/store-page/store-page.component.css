@@ -1,0 +1,133 @@
+.search-filter-section {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.search-field {
+  width: 100%;
+  max-width: 400px;
+}
+
+.store-layout {
+  display: flex;
+  gap: 2rem;
+}
+
+.filter-sidebar {
+  width: 200px;
+  padding-right: 1rem;
+  border-right: 1px solid #ccc;
+}
+
+.filter-sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.filter-sidebar li {
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.filter-sidebar li:hover {
+  background-color: #f0f0f0;
+}
+
+.filter-sidebar li.active {
+  font-weight: bold;
+  color: #3f51b5;
+}
+
+.product-list {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.search-filter-section {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.search-field {
+  width: 100%;
+  max-width: 400px;
+}
+
+.store-layout {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.filter-sidebar {
+  width: 200px;
+  padding-right: 1rem;
+  border-right: 1px solid #ccc;
+}
+
+.filter-sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.filter-sidebar li {
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.filter-sidebar li:hover {
+  background-color: #f0f0f0;
+}
+
+.filter-sidebar li.active {
+  font-weight: bold;
+  color: #3f51b5;
+}
+
+.product-list {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .store-layout {
+    flex-direction: column;
+  }
+
+  .filter-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 1rem;
+    padding-right: 0;
+    padding-bottom: 1rem;
+  }
+
+  .filter-sidebar ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .filter-sidebar li {
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    background-color: #eee;
+  }
+
+  .filter-sidebar li.active {
+    background-color: #3f51b5;
+    color: white;
+  }
+}

@@ -1,0 +1,39 @@
+<section class="search-filter-section container">
+  <mat-form-field appearance="outline" class="search-field">
+    <mat-label>Keresés</mat-label>
+    <input matInput [formControl]="searchControl" placeholder="Termék keresése">
+  </mat-form-field>
+</section>
+
+<section class="store-layout container">
+  <aside class="filter-sidebar">
+    <h3>Kategóriák</h3>
+    <ul>
+      <li (click)="filterByCategory('')" [class.active]="!selectedCategory">Összes</li>
+      <li
+        *ngFor="let cat of categories"
+        (click)="filterByCategory(cat)"
+        [class.active]="selectedCategory === cat"
+      >
+        {{ cat }}
+      </li>
+    </ul>
+  </aside>
+
+  <div class="product-list">
+    <mat-card
+      *ngFor="let product of filteredProducts"
+      class="product-card"
+      [routerLink]="['/product', product.id]"
+    >
+      <img mat-card-image [src]="product.imageUrl" alt="{{ product.name }}">
+      <mat-card-content>
+        <h3>{{ product.name }}</h3>
+        <p class="price">Ár: {{ product.price | priceFormat:'HUF' }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="accent" (click)="addToCart(product); $event.stopPropagation()">Kosárba</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</section>

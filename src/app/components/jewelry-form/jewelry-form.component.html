@@ -1,0 +1,29 @@
+<mat-card style="margin:16px;">
+  <mat-card-title>Új Ékszer Hozzáadása</mat-card-title>
+  <form [formGroup]="jewelryForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline" style="display:block;">
+      <mat-label>Név</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
+    <mat-form-field appearance="outline" style="display:block;">
+      <mat-label>Leírás</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="outline" style="display:block;">
+      <mat-label>Ár</mat-label>
+      <input matInput type="number" formControlName="price">
+    </mat-form-field>
+    <mat-form-field appearance="outline" style="display:block;">
+      <mat-label>Image URL</mat-label>
+      <input matInput formControlName="imageUrl">
+    </mat-form-field>
+    <mat-form-field appearance="outline" style="display:block;">
+      <mat-label>Kategória</mat-label>
+      <mat-select formControlName="category">
+        <mat-option value="Ring">Ring</mat-option>
+        <mat-option value="Necklace">Necklace</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Elküld</button>
+  </form>
+</mat-card>

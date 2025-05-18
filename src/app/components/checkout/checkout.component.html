@@ -1,0 +1,62 @@
+<mat-horizontal-stepper linear>
+  <!-- személyes adatok -->
+  <mat-step [stepControl]="personalForm">
+    <form [formGroup]="personalForm">
+      <ng-template matStepLabel>Személyes adatok</ng-template>
+      <mat-form-field appearance="outline">
+        <mat-label>Teljes Név</mat-label>
+        <input matInput formControlName="fullName">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email">
+      </mat-form-field>
+      <button mat-button matStepperNext [disabled]="personalForm.invalid">Tovább</button>
+    </form>
+  </mat-step>
+
+  <!-- szállítás -->
+  <mat-step [stepControl]="shippingForm">
+    <form [formGroup]="shippingForm">
+      <ng-template matStepLabel>Szállítás</ng-template>
+      <mat-form-field appearance="outline">
+        <mat-label>Cím</mat-label>
+        <input matInput formControlName="address">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Város</mat-label>
+        <input matInput formControlName="city">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Irányítószám</mat-label>
+        <input matInput formControlName="postalCode">
+      </mat-form-field>
+      <button mat-button matStepperPrevious>Vissza</button>
+      <button mat-button matStepperNext [disabled]="shippingForm.invalid">Tovább</button>
+    </form>
+  </mat-step>
+
+  <!-- fizetés -->
+  <mat-step [stepControl]="paymentForm">
+    <form [formGroup]="paymentForm">
+      <ng-template matStepLabel>Fizetés</ng-template>
+      <mat-form-field appearance="outline">
+        <mat-label>Bankkártya szám</mat-label>
+        <input matInput formControlName="cardNumber">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Lejárat (MM/YY)</mat-label>
+        <input matInput formControlName="expiryDate">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>CVV</mat-label>
+        <input matInput formControlName="cvv">
+      </mat-form-field>
+      <div class="total"><strong>Végösszeg: {{ total | priceFormat:'HUF' }}</strong></div>
+      <button mat-button matStepperPrevious>Vissza</button>
+      <button mat-raised-button color="primary" (click)="submitOrder()" [disabled]="paymentForm.invalid">
+        Rendelés leadása
+      </button>
+    </form>
+  </mat-step>
+</mat-horizontal-stepper>

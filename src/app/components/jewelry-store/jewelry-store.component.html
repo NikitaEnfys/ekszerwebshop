@@ -1,0 +1,55 @@
+<section class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1>Ricochet</h1>
+    <p>
+      Kilőtt lőszerek felhasználásával készült Swarovski berakásos ékszerek és
+      kiegészítők hazánk lőtereiről egyenesen a Te kezedbe!
+    </p>
+  </div>
+</section>
+
+<h2>Minden termék</h2>
+<div class="product-list">
+  <mat-card *ngFor="let p of allProducts" class="product-card">
+    <img mat-card-image [src]="p.imageUrl" alt="{{ p.name }}">
+    <mat-card-content>
+      <h3>{{ p.name }}</h3>
+      <p>Ár: {{ p.price | priceFormat:'HUF' }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button [routerLink]="['/product', p.id]">Részletek</button>
+      <button mat-button color="accent" (click)="addToCart(p)">Kosárba</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<h2>Újdonságok</h2>
+<div class="product-list">
+  <mat-card *ngFor="let p of newArrivals" class="product-card">
+    <img mat-card-image [src]="p.imageUrl" alt="{{ p.name }}">
+    <mat-card-content>
+      <h3>{{ p.name }}</h3>
+      <p>Ár: {{ p.price | priceFormat:'HUF' }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button [routerLink]="['/product', p.id]">Részletek</button>
+      <button mat-button color="accent" (click)="addToCart(p)">Kosárba</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<h2>5000 Ft alatt</h2>
+<div class="product-list">
+  <mat-card *ngFor="let p of under5000" class="product-card">
+    <img mat-card-image [src]="p.imageUrl" alt="{{ p.name }}">
+    <mat-card-content>
+      <h3>{{ p.name }}</h3>
+      <p>Ár: {{ p.price | priceFormat:'HUF' }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button [routerLink]="['/product', p.id]">Részletek</button>
+      <button mat-button color="accent" (click)="addToCart(p)">Kosárba</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
