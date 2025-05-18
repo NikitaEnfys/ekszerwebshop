@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Jewelry
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.6.
@@ -62,3 +63,6 @@ For more information on using the Angular CLI, including detailed command refere
 # ekszerwebshop
 Webkert ÉkszerWebshop
 >>>>>>> eba3d254b2ee355b3f57e7edeacb1cb9c1bff99a
+=======
+
+>>>>>>> origin/main
